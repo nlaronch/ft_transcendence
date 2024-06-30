@@ -8,6 +8,7 @@ import type User from '@/types/User';
 import router from '@/router/index'
 import Status from '@/types/Status';
 import socket from '@/plugin/socketInstance';
+import defaultImage from '@/assets/anonymize.png';
 
 export const useUserStore = defineStore('userStore', {
 	state: (): UserState => ({
@@ -41,6 +42,8 @@ export const useUserStore = defineStore('userStore', {
 				if (!this.userAuth.has_2fa)
 				{
 					this.userData = response.data.user;
+					// 42 image fetch do not work.
+					this.userData.avatar = defaultImage;
 					if (this.isRegistered && !this.userAuth.has_2fa) this.logUser()
 				} 
 			} catch (error: any) {
